@@ -2,24 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  description: string;
-  discount: number;
-}
-
-interface UseMutateProductsReturn {
-  createProduct: (product: Omit<Product, 'id' | 'discount'>) => Promise<Product | null>;
-  loading: boolean;
-  error: string | null;
-}
+import { Product, UseMutateProductsReturn } from '../types';
 
 export default function useMutateProducts(): UseMutateProductsReturn {
   const [loading, setLoading] = useState<boolean>(false);

@@ -29,10 +29,15 @@ shop/
 │   │   ├── ProductRow.tsx           # Product display row component
 │   │   └── ProductRow.module.css    # Product row styles
 │   ├── hooks/                       # Custom React hooks
+│   │   ├── useMutateProducts.ts     # Product mutation hook
 │   │   └── useProducts.ts           # Products data fetching hook
 │   ├── products/                    # Products section
 │   │   ├── page.tsx                 # Product display page
 │   │   └── page.module.css          # Products page styles
+│   ├── types/                       # TypeScript type definitions
+│   │   ├── index.ts                 # Central export point for types
+│   │   ├── hooks.ts                 # Hook return type interfaces
+│   │   └── product.ts               # Product-related interfaces
 │   ├── globals.css                  # Global styles and CSS variables
 │   ├── layout.tsx                   # Root layout component
 │   ├── page.tsx                     # Home page component
@@ -52,6 +57,8 @@ shop/
 - Keep components in the `app/` directory following the App Router structure
 - Use CSS modules for component-specific styling
 - Utilize global CSS variables for consistent theming
+- Centralize TypeScript interfaces in `app/types/` directory
+- Import types from `app/types` for reusability across components
 
 ## Testing
 
