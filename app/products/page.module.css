@@ -1,0 +1,89 @@
+/* Products page styles */
+
+.productsContainer {
+  background-color: var(--primary-bg);
+  min-height: 100vh;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.loadingSection {
+  text-align: center;
+  padding: 3rem;
+  color: var(--text-secondary);
+}
+
+.errorSection {
+  text-align: center;
+  padding: 3rem;
+  color: var(--error-text);
+  background-color: var(--error-bg);
+  border-radius: var(--border-radius-lg);
+  margin: 2rem 0;
+}
+
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.promotionSection {
+  text-align: center;
+  padding: 3rem 0;
+  background-color: var(--secondary-bg);
+  border-radius: var(--border-radius-xl);
+  margin: 2rem 0;
+}
+
+.promotionTitle {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+}
+
+.promotionDescription {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+}
+
+.promotionButton {
+  background-color: white;
+  color: var(--text-primary);
+  border: 2px solid var(--text-primary);
+  padding: 0.75rem 2rem;
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.promotionButton:hover {
+  background-color: var(--secondary-bg);
+}
+
+.footer {
+  background-color: white;
+  border-top: 1px solid var(--border-color);
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+.footerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footerText {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0;
+}
