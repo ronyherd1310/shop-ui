@@ -1,17 +1,6 @@
 import styles from './ProductRow.module.css';
 import CartCounter from './CartCounter';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  description: string;
-  discount : number;
-}
+import { Product } from '../types';
 
 interface ProductRowProps {
   product: Product;

@@ -2,24 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice: number;
-  image: string;
-  rating: number;
-  reviews: number;
-  description: string;
-  discount: number;
-}
-
-interface UseProductsReturn {
-  products: Product[];
-  loading: boolean;
-  error: string | null;
-}
+import { Product, UseProductsReturn } from '../types';
 
 export default function useProducts(): UseProductsReturn {
   const [products, setProducts] = useState<Product[]>([]);
