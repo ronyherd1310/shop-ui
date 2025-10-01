@@ -15,10 +15,12 @@ export default function useProducts(): UseProductsReturn {
         setLoading(true);
         setError(null);
         const response = await axios.get('/api/products');
+        console.log(response);
         const productsWithDiscount = response.data.map((product: Product) => ({
           ...product,
           discount: ((product.originalPrice - product.price)/product.originalPrice) * 100 || 0
         }));
+        
         setProducts(productsWithDiscount);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch products');

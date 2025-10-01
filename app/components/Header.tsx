@@ -1,7 +1,7 @@
 import styles from './Header.module.css';
 
 interface HeaderProps {
-  currentPage?: 'home' | 'products';
+  currentPage?: 'home';
 }
 
 export default function Header({ currentPage = 'home' }: HeaderProps) {
@@ -9,16 +9,8 @@ export default function Header({ currentPage = 'home' }: HeaderProps) {
     <header className={styles.header}>
       <nav className={styles.nav}>
         <h1 className={styles.logo}>
-          Shop
+          Kawakibi Cafe
         </h1>
-        <div className={styles.navLinks}>
-          <a href="/" className={`${styles.navLink} ${currentPage === 'home' ? styles.navLinkActive : ''}`}>
-            Home
-          </a>
-          <a href="/products" className={`${styles.navLink} ${currentPage === 'products' ? styles.navLinkActive : ''}`}>
-            Products
-          </a>
-        </div>
       </nav>
     </header>
   );

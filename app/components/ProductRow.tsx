@@ -4,9 +4,10 @@ import { Product } from '../types';
 
 interface ProductRowProps {
   product: Product;
+  onChangeCartCounter?: (productId: number, count: number) => void;
 }
 
-export default function ProductRow({ product }: ProductRowProps) {
+export default function ProductRow({ product, onChangeCartCounter }: ProductRowProps) {
   return (
     <div key={product.id} className={styles.productCard}>
       <div
@@ -52,7 +53,9 @@ export default function ProductRow({ product }: ProductRowProps) {
         </span>
       </div>
 
-      <CartCounter onCountChange={(count) => console.log(`Product ${product.id} count: ${count}`)} />
+      <CartCounter onCountChange={(count) => {
+        onChangeCartCounter?.(product.id, count);
+      }} />
     </div>
   );
 }
