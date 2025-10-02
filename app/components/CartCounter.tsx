@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './CartCounter.module.css';
 
 interface CartCounterProps {
@@ -10,6 +10,10 @@ interface CartCounterProps {
 
 export default function CartCounter({ initialCount = 0, onCountChange }: CartCounterProps) {
   const [count, setCount] = useState<number>(initialCount);
+
+  useEffect(() => {
+    setCount(initialCount);
+  }, [initialCount]);
 
   const handleIncrement = () => {
     const newCount = count + 1;

@@ -14,9 +14,7 @@ export default function useOrders(tableNumber?: string): UseOrdersReturn {
       try {
         setLoading(true);
         setError(null);
-
         const customer = tableNumber || '';
-        console.log(customer);
         const response = await axios.get(`/api/orders?customer=${customer}`);
         setOrders(response.data);
       } catch (err) {

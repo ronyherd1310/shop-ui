@@ -1,8 +1,10 @@
 'use client';
 
+import { useState, useEffect, useMemo } from 'react';
 import Header from './components/Header';
 import ProductRow from './components/ProductRow';
 import useProducts from './hooks/useProducts';
+import useOrders from './hooks/useOrders';
 import useMutateOrders from './hooks/useMutateOrders';
 import { Order } from './types';
 import styles from './page.module.css';
@@ -11,12 +13,34 @@ export default function Home() {
   const { products, loading, error } = useProducts();
   const { createOrder } = useMutateOrders();
 
+  const [tableNumber, setTableNumber] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get('tableNumber') || '';
+    }
+    return '';
+  });
+
+  const [checkoutUrl, setCheckoutUrl] = useState('/order-summary');
+  const { orders } = useOrders(tableNumber);
+
+  useEffect(() => {
+    if (tableNumber) {
+      setCheckoutUrl(`/order-summary?tableNumber=${tableNumber}`);
+    }
+  }, [tableNumber]);
+
+  const productQuantities = useMemo(() => {
+    if (orders.length === 0) return new Map<number, number>();
+
+    const latestOrder = orders[orders.length - 1];
+    return new Map(latestOrder.items.map(item => [item.productId, item.quantity]));
+  }, [orders]);
+
   const handleOnChangeCartCounter = async (productId: number, count: number) => {
+    if (typeof window === 'undefined') return;
     const searchParams = new URLSearchParams(window.location.search);
     const tableNumber = searchParams.get('tableNumber') || '';
-
-    console.log(`Product ${productId} count changed to: ${count}`);
-    console.log('Table Number:', tableNumber);
 
     if (tableNumber) {
       const newOrder: Order = {
@@ -30,8 +54,6 @@ export default function Home() {
         ]
       };
 
-      console.log('Order object created:', newOrder);
-
       const result = await createOrder(newOrder);
       if (result) {
         console.log('Order created successfully:', result);
@@ -41,12 +63,6 @@ export default function Home() {
     } else {
       console.log('No table number provided, skipping order creation');
     }
-  };
-
-  const getCheckoutUrl = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const tableNumber = searchParams.get('tableNumber');
-    return tableNumber ? `/order-summary?tableNumber=${tableNumber}` : '/order-summary';
   };
 
   return (
@@ -65,12 +81,14 @@ export default function Home() {
           </div>
         ) : (
           <div className={styles.productsGrid}>
-            {products.map((product) => (
-              <ProductRow
-                key={product.id}
-                product={product}
-                onChangeCartCounter={handleOnChangeCartCounter}
-              />
+            {
+              products.map((product) => (
+                <ProductRow
+                  key={product.id}
+                  product={product}
+                  counter={productQuantities.get(product.id)}
+                  onChangeCartCounter={handleOnChangeCartCounter}
+                />
             ))}
           </div>
         )}
@@ -78,7 +96,7 @@ export default function Home() {
 
       <div className={styles.stickyCheckout}>
         <div className={styles.checkoutContent}>
-          <a href={getCheckoutUrl()} className={styles.checkoutButton}>
+          <a href={checkoutUrl} className={styles.checkoutButton}>
             Checkout
           </a>
         </div>
@@ -87,7 +105,7 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <p className={styles.footerText}>
-            © 2024 Shop. All rights reserved.
+            © 2024 Kawakibi Cafe. All rights reserved.
           </p>
         </div>
       </footer>
