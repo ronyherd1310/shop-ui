@@ -14,7 +14,7 @@ export default function ProductRow({ product, onChangeCartCounter, counter }: Pr
       <div
         className={styles.productImage}
         style={{
-          backgroundImage: `url(${product.image})`
+          backgroundImage: `url(http://localhost:3000/images/iced_coffee.png)`
         }}
       />
 
